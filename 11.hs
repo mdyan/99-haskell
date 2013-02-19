@@ -1,8 +1,9 @@
 data ListItem a = Single a | Multiple Int a
+    deriving (Show)
 
-encodeMod :: Eq s => [s] -> [ListItem a]
+encodeMod :: Eq s => [s] -> [ListItem s]
 
-encodeMod s = undefined
+encodeMod s = [f | x <- pack s, let f = if (length x == 1) then Single (head x) else Multiple (length x) (head x) ]
 
 pack :: Eq a => [a] -> [[a]]
 pack [] = []
